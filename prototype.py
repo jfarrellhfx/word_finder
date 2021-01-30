@@ -1,15 +1,42 @@
+"""
+Jack Farrell, 2020
+
+Classes to support a basic "word finder" application
+"""
+
 class tests:
+    """
+    Functions to test if a word satisfies certain conditions.
+    """
+
 
     @staticmethod
     def length(word, L):
+        """
+        Test if a word has length L
+
+        :param word: string
+        :param L: **string** (yep! string!)
+        :return: bool
+        """
+
+        # check if we are dealing with a range or just an integer.  If so:
         if "-" in L:
+
+            # split the string into two parts: left of the "-" and right of
+            #it
             Lstrings = L.split("-")
+
+            # turn the left and right (max and min) into integers
             Lmin, Lmax = int(Lstrings[0]), int(Lstrings[1])
 
+            # if the length of the word is an integer between Lmin and Lmax
+            # (inclusive):
             if len(word) in range(Lmin, Lmax + 1):
                 return True
             else:
                 return False
+        # if not, we are just dealing with an integer.
         else:
             Lint = int(L)
             return len(word) == Lint
