@@ -28,6 +28,9 @@ word_ends_with = QLineEdit(placeholderText = "Ending letter or phrase")
 word_contains11 = QLineEdit(placeholderText = "word contains this letter or phrase")
 word_contains12 = QLineEdit(placeholderText = "optional, another phrase")
 
+word_one_of_these_letters = QLineEdit(placeholderText = "one of these letters")
+word_one_of_these_letters_range = QLineEdit(placeholderText = "in this range of positions")
+
 
 layout = QGridLayout()
 layout.addWidget(QLabel("<h2>Options:</h2>"), 0, 0)
@@ -48,6 +51,12 @@ layout.addWidget(word_contains11, 4, 1)
 
 layout.addWidget(QLabel("or"), 4, 2)
 layout.addWidget(word_contains12, 4, 3)
+
+layout.addWidget(QLabel("<h3>Word Contains at least<br>one of these letters:</h3>"), 10, 0)
+layout.addWidget(word_one_of_these_letters, 10, 1)
+layout.addWidget(QLabel(" in "), 10, 2)
+layout.addWidget(word_one_of_these_letters_range, 10, 3)
+
 
 
 
@@ -76,6 +85,9 @@ def check_words():
     if word_contains11.text() != "" and word_contains12.text() != "":
         conditions.append(lambda word: tests.contains(word, word_contains11.text()) or tests.contains(word, word_contains12.text()))
 
+    if word_one_of_these_letters.text() != "":
+        conditions.append(lambda word: tests.one_of_these_letters(word, word_one_of_these_letters.text(), word_one_of_these_letters_range.text()))
+
 
 
 
@@ -103,7 +115,7 @@ layout.addWidget(button, 100, 1)
 window.setLayout(layout)
 
 browser.setOpenExternalLinks(True)
-layout.addWidget(browser, 6, 1)
+layout.addWidget(browser, 101, 1)
 
 window.show()
 sys.exit(app.exec_())

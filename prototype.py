@@ -74,3 +74,29 @@ class tests:
             else:
                 return False
 
+    @staticmethod
+    def one_of_these_letters(word, letters, interval):
+        contains = False
+
+        if interval == "":
+            for letter in letters:
+                if letter in word:
+                    contains = True
+
+
+        elif "-" in interval:
+            Lstrings = interval.split("-")
+            Lmin, Lmax = int(Lstrings[0]), int(Lstrings[1])
+
+            if Lmax < len(word):
+                for letter in letters:
+                    if letter in word[Lmin:Lmax]:
+                        contains = True
+
+        else:
+            if len(word) > int(interval) - 1:
+                for letter in letters:
+                    if word[int(interval) - 1] == letter:
+                        contains = True
+        return contains
+
